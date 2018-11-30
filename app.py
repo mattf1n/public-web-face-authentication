@@ -9,6 +9,8 @@ import face_recognition
 import sqlite3
 import pickle
 import numpy
+import base64
+
 
 
 # Configure application
@@ -39,7 +41,6 @@ known_faces = c.fetchall()
 for face in known_faces:
     known_face_encodings.append(pickle.loads(face[1])[0])
     known_face_names.append(face[0])
-
 
 # files = os.listdir('people')
 # if '.DS_Store' in files:
@@ -99,15 +100,49 @@ def upload():
 
     return render_template("finalproject.html")
 
-@app.route("/welcome")
+@app.route("/welcome", methods=["GET"])
 def welcome():
     return render_template("welcome.html", name=name)
 
 @app.route("/login")
 def login():
-    return render_template("finalproject.html", name=name)
+    return render_template("finalproject.html")
+
+@app.route("/check", methods=["POST"])
+def check():
+    global name
+    """Check if a face is in the crowd"""
+    blob = request.data
+    with open('image.jpg', 'wb') as fh:
+        # Get only revelant data, deleting "data:image/png;base64,"
+        data = blob.split(',')[1]
+        fh.write(base64.decodestring(data))
+    # image.save(os.path.join(app.config['UPLOAD_FOLDER'], 'image.jpg'))
+    file = face_recognition.load_image_file('image.jpg')
+    encoding = face_recognition.face_encodings(file)[0]
+
+    os.remove('image.jpg')
+
+    distances = face_recognition.face_distance(known_face_encodings, encoding)
+
+    print(min(distances))
+    # If a match was found in known_face_encodings, just use the first one.
+    # if min(distances) < 0.45:
+    #     match_index = numpy.where(distances == min(distances))[0][0]
+    #     print(match_index)
+    #     name = known_face_names[match_index]
+    #     return redirect("/welcome")
+
+    match_index = numpy.where(distances == min(distances))[0][0]
+    name = known_face_names[match_index]
+    print(name)
+    return redirect("/welcome")
 
 
+@app.route("/delete", methods=["GET", "POST"])
+def delete():
+    """Upload a picture"""
+    return render_template("delete.html")
 
 #
 # # Listen for errors
