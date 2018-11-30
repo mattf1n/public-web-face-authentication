@@ -102,7 +102,12 @@ def upload():
 
 @app.route("/welcome", methods=["GET"])
 def welcome():
-    return render_template("welcome.html", name=name)
+    global name
+    user = name
+    name = "Unknown"
+    if user == name:
+        return redirect("/login")
+    return render_template("welcome.html", name=user)
 
 @app.route("/login")
 def login():
@@ -127,16 +132,15 @@ def check():
 
     print(min(distances))
     # If a match was found in known_face_encodings, just use the first one.
-    # if min(distances) < 0.45:
-    #     match_index = numpy.where(distances == min(distances))[0][0]
-    #     print(match_index)
-    #     name = known_face_names[match_index]
-    #     return redirect("/welcome")
+    if min(distances) < 0.5:
+        match_index = numpy.where(distances == min(distances))[0][0]
+        name = known_face_names[match_index]
+        print(name)
+        return jsonify(True)
 
-    match_index = numpy.where(distances == min(distances))[0][0]
-    name = known_face_names[match_index]
-    print(name)
-    return redirect("/welcome")
+    # match_index = numpy.where(distances == min(distances))[0][0]
+    # name = known_face_names[match_index]
+    return jsonify(False)
 
 
 @app.route("/delete", methods=["GET", "POST"])
