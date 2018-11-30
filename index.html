@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+    <form name="form" action="/upload" method="post" enctype="multipart/form-data">
+        <div class="form-group custom-file">
+          <input type="file" name="image">
+          <input type="text" name="text">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+{% endblock %}
