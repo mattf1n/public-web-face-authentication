@@ -2584,7 +2584,7 @@ $(function() {
     var show_stream = function() {
       $(this).hide();
       $(".item").removeClass("selected");
-      hide_snapshot_controls();
+      //hide_snapshot_controls();
       clear_upload_data();
       camera.show_stream();
     };

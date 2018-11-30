@@ -95,17 +95,13 @@ def upload():
 
         os.remove('image.jpg')
         print(name)
-        return render_template("index.html")
+        return render_template("finalproject.html")
 
-    return render_template("index.html")
+    return render_template("finalproject.html")
 
 @app.route("/welcome")
 def welcome():
     return render_template("welcome.html", name=name)
-
-@app.route("/login")
-def login():
-    return render_template("finalproject.html")
 
 #
 # # Listen for errors

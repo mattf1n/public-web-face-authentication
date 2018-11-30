@@ -1114,9 +1114,9 @@ body {
   font-family: "Helvetica Neueu", "Helvetica", "Arial", sans;
 }
 
-button, input, #loader {
+/* button, input, #loader {
   display: none;
-}
+} */
 
 input {
   width: 300px;
