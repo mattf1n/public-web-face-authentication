@@ -61,7 +61,7 @@ name = "Unknown"
 
 @app.route("/")
 def index():
-    return redirect("/upload")
+    return redirect("/login")
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
@@ -102,6 +102,12 @@ def upload():
 @app.route("/welcome")
 def welcome():
     return render_template("welcome.html", name=name)
+
+@app.route("/login")
+def login():
+    return render_template("finalproject.html", name=name)
+
+
 
 #
 # # Listen for errors
