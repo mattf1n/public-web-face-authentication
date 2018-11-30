@@ -103,6 +103,10 @@ def upload():
 def welcome():
     return render_template("welcome.html", name=name)
 
+@app.route("/login")
+def login():
+    return render_template("finalproject.html")
+
 #
 # # Listen for errors
 # for code in default_exceptions:
