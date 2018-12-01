@@ -2480,7 +2480,23 @@ $(function() {
     var camera; // Initialized at the end
 
     var take_snapshots = function(count) {
+
       var snapshot = camera.capture();
+
+      // photo = snapshot.data();
+      // console.log(snapshot);
+      //
+      // $.ajax({
+      //       type: 'POST',
+      //       url: '/check',
+      //       data: photo,
+      //       contentType: false,
+      //       cache: false,
+      //       processData: false,
+      //       success: function(data) {
+      //           console.log('Success!');
+      //       },
+      //   });
 
       if (JpegCamera.canvas_supported()) {
         snapshot.get_canvas(add_snapshot);
@@ -2509,12 +2525,34 @@ $(function() {
       element.style.height = "" + height + "px";
       element.style.width = "" + Math.round(camera_ratio * height) + "px";
 
+      // Matt's addition -- sends the picture to the server
+      pic = element.toDataURL('image/png')
+      // console.log(pic)
+
+      var xhr = new XMLHttpRequest();
+      // if the server returns true, load the welcome page
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          welcome(xhr.response);
+        }
+      }
+
+      // Send the pic to the the server
+      xhr.open('POST', '/check', true);
+      xhr.send(pic)
+
       var scroll = $container[0].scrollWidth - $container.innerWidth();
 
       $container.animate({
         scrollLeft: scroll
       }, 200);
     };
+
+    var welcome = function (response) {
+      if (response) {
+        location.replace("/welcome")
+      }
+    }
 
     var select_snapshot = function () {
       $(".item").removeClass("selected");
@@ -2529,19 +2567,36 @@ $(function() {
     };
 
     var upload_snapshot = function() {
-      var api_url = $("#api_url").val();
-
-      if (!api_url.length) {
-        $("#upload_status").html("Please provide URL for the upload");
-        return;
-      }
+      // var api_url = $("#api_url").val();
+      //
+      // if (!api_url.length) {
+      //   $("#upload_status").html("Please provide URL for the upload");
+      //   return;
+      // }
 
       clear_upload_data();
       $("#loader").show();
       $("#upload_snapshot").prop("disabled", true);
 
       var snapshot = $(".item.selected").data("snapshot");
-      snapshot.upload({api_url: api_url}).done(upload_done).fail(upload_fail);
+      // snapshot.upload({api_url: "/check"}).done(upload_done).fail(upload_fail);
+      // $.get('/check', { image: snapshot }, function(data) {})
+
+      console.log(snapshot)
+
+      // $.ajax({
+      //       type: 'POST',
+      //       url: '/check',
+      //       data: item.selected,
+      //       contentType: false,
+      //       cache: false,
+      //       processData: false,
+      //       success: function(data) {
+      //           console.log('Success!');
+      //       },
+      //   });
+
+        console.log(snapshot)
     };
 
     var upload_done = function(response) {

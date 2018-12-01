@@ -29,7 +29,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-
+# Connect the database
 conn = sqlite3.connect('faces.db')
 c = conn.cursor()
 
@@ -143,10 +143,10 @@ def check():
     return jsonify(False)
 
 
-@app.route("/delete", methods=["GET", "POST"])
-def delete():
-    """Upload a picture"""
-    return render_template("delete.html")
+# @app.route("/delete", methods=["GET", "POST"])
+# def delete():
+#     """Upload a picture"""
+#     return render_template("delete.html")
 
 #
 # # Listen for errors
