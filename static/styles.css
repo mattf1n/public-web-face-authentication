@@ -1145,6 +1145,7 @@ input {
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
+  display: none;
 }
 
 #snapshots canvas, #snapshots img {

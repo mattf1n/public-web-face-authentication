@@ -107,6 +107,9 @@ def welcome():
     name = "Unknown"
     if user == name:
         return redirect("/login")
+    else:
+        user = user.replace(',','').split()
+    print(user)
     return render_template("welcome.html", name=user)
 
 @app.route("/login")
