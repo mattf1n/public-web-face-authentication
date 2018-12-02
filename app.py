@@ -151,6 +151,11 @@ def check():
 #     """Upload a picture"""
 #     return render_template("delete.html")
 
+@app.route("/selfie")
+def selfie():
+    """Upload a picture"""
+    return render_template("selfie.html")
+
 #
 # # Listen for errors
 # for code in default_exceptions:

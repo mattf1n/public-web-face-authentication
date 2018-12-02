@@ -51,7 +51,7 @@
         <p>To log in, please capture a photo of yourself</a></p>
 
 
-        <div id="camera">
+        <!-- <div id="camera">
           <div class="placeholder">
             Your browser does not support camera access.<br>
             We recommend
@@ -62,9 +62,9 @@
         </div><br>
 
         <button id="take_snapshots">Submit photo</button>
-        <!-- <button id="show_stream">Show live stream</button><br> -->
+        <button id="show_stream">Show live stream</button><br>
 
-        <div id="snapshots"></div>
+        <div id="snapshots"></div> -->
 
         <!-- <button id="discard_snapshot">Discard snapshot</button> -->
         <!-- <button id="upload_snapshot">Upload to URL</button><br> -->
@@ -76,7 +76,37 @@
         <!-- <div id="upload_status"></div> -->
         <!-- <div id="upload_result"></div> -->
 
+        <link type="text/css" rel="stylesheet" href="/static/selfie.css"/>
 
+          <div class="app">
+
+            <a href="#" id="start-camera" class="visible">Touch here to start the app.</a>
+
+            <div class="video_container">
+
+              <video id="camera-stream"></video>
+
+            </div>
+
+
+            <div class="controls">
+              <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
+            </div>
+
+
+
+
+            <img id="snap">
+
+            <p id="error-message"></p>
+
+            <!-- Hidden canvas element. Used for taking snapshot of video. -->
+            <canvas></canvas>
+
+          </div>
+
+
+        <script type="text/javascript" src="/static/selfie.js"></script>
 
         <p><a tabindex="19" href="https://key.harvard.edu/" target="_blank">Back to HarvardKey Home ></a></p>
 
@@ -113,12 +143,13 @@
     <script type="text/javascript"
       src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
-    <script type="text/javascript"
-      src="/static/jpeg_camera_with_dependencies.min.js"></script>
+    <!-- <script type="text/javascript"
+      src="/static/jpeg_camera_with_dependencies.min.js"></script> -->
     <script type="text/javascript" src="/static/scripts.js"></script>
 </footer>
 
 
-<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={<!-- "errorBeacon":"bam.nr-data.net", -->"licenseKey":"8cfe7d34bd","agent":"","beacon":"bam.nr-data.net","applicationTime":20,"applicationID":"167741080","transactionName":"YlJbZ0cHXxZYW0UMC1sYc2BlSWYgexV4KyIaQVBWQklbFkkXVQACVEJVR2pJRAwWW1AWKFpQUF1jD1QSF1JCFQ==","queueTime":0}</script></body>
+<!-- <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"errorBeacon":"bam.nr-data.net","licenseKey":"8cfe7d34bd","agent":"","beacon":"bam.nr-data.net","applicationTime":20,"applicationID":"167741080","transactionName":"YlJbZ0cHXxZYW0UMC1sYc2BlSWYgexV4KyIaQVBWQklbFkkXVQACVEJVR2pJRAwWW1AWKFpQUF1jD1QSF1JCFQ==","queueTime":0}</script> -->
+</body>
 
 </html>
