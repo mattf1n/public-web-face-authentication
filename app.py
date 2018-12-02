@@ -87,7 +87,7 @@ def upload():
 
         print(min(distances))
         # If a match was found in known_face_encodings, just use the first one.
-        if min(distances) < 0.45:
+        if min(distances) < 0.3:
             match_index = numpy.where(distances == min(distances))[0][0]
             print(match_index)
             name = known_face_names[match_index]
@@ -135,7 +135,7 @@ def check():
 
     print(min(distances))
     # If a match was found in known_face_encodings, just use the first one.
-    if min(distances) < 0.5:
+    if min(distances) < 0.3:
         match_index = numpy.where(distances == min(distances))[0][0]
         name = known_face_names[match_index]
         print(name)
