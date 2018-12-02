@@ -85,17 +85,15 @@ def upload():
 
         distances = face_recognition.face_distance(known_face_encodings, encoding)
 
-        print(min(distances))
+        # print(min(distances))
         # If a match was found in known_face_encodings, just use the first one.
         if min(distances) < 0.45:
             match_index = numpy.where(distances == min(distances))[0][0]
-            print(match_index)
             name = known_face_names[match_index]
             return redirect("/welcome")
 
 
         os.remove('image.jpg')
-        print(name)
         return render_template("finalproject.html")
 
     return render_template("finalproject.html")
@@ -109,7 +107,6 @@ def welcome():
         return redirect("/login")
     else:
         user = user.replace(',','').split()
-    print(user)
     return render_template("welcome.html", name=user)
 
 @app.route("/login")
@@ -133,12 +130,10 @@ def check():
 
     distances = face_recognition.face_distance(known_face_encodings, encoding)
 
-    print(min(distances))
     # If a match was found in known_face_encodings, just use the first one.
     if min(distances) < 0.5:
         match_index = numpy.where(distances == min(distances))[0][0]
         name = known_face_names[match_index]
-        print(name)
         return jsonify(True)
 
     # match_index = numpy.where(distances == min(distances))[0][0]
