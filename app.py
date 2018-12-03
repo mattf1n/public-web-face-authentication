@@ -98,16 +98,19 @@ def upload():
 
     return render_template("finalproject.html")
 
-@app.route("/welcome", methods=["GET"])
+@app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-    global name
-    user = name
-    name = "Unknown"
-    if user == name:
-        return redirect("/login")
+    if request.method == "GET":
+        global name
+        user = name
+        name = "Unknown"
+        if user == name:
+            return redirect("/login")
+        else:
+            user = user.replace(',','').split()
+        return render_template("welcome.html", name=user)
     else:
-        user = user.replace(',','').split()
-    return render_template("welcome.html", name=user)
+        return redirect("/login")
 
 @app.route("/login")
 def login():
