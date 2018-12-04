@@ -1,5 +1,5 @@
 body {
-  background-image: url("login.png");
+  background-image: url("../img/login.png");
   width: 100%:
 
 }
@@ -9,7 +9,7 @@ div {
   padding-top: 150px;
 }
 
-/*-- modified from http://jsfiddle.net/VXBVK/ */ 
+/*-- modified from http://jsfiddle.net/VXBVK/ */
 #button {
     position:absolute;
     top:0px;
