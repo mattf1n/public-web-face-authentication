@@ -98,6 +98,7 @@ def index():
 #
 #     return render_template("finalproject.html")
 
+<<<<<<< HEAD
 @app.route("/harvard", methods=["GET"])
 def welcome():
     global name
@@ -105,9 +106,21 @@ def welcome():
     name = "Unknown"
     if user == name:
         return render_template("finalproject.html")
+=======
+@app.route("/welcome", methods=["GET", "POST"])
+def welcome():
+    if request.method == "GET":
+        global name
+        user = name
+        name = "Unknown"
+        if user == name:
+            return redirect("/login")
+        else:
+            user = user.replace(',','').split()
+        return render_template("welcome.html", name=user)
+>>>>>>> 52cdf668d62f737b825f30e40ae431efbc825c42
     else:
-        user = user.replace(',','').split()
-    return render_template("welcome.html", name=user)
+        return redirect("/login")
 
 # @app.route("/login")
 # def login():
