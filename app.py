@@ -64,54 +64,54 @@ name = "Unknown"
 def index():
     return redirect("/login")
 
-@app.route("/upload", methods=["GET", "POST"])
-def upload():
-    """Upload a picture"""
-    global name
-    if request.method == "POST":
-        image = request.files["image"]
-        image.save(os.path.join(app.config['UPLOAD_FOLDER'], 'image.jpg'))
-        file = face_recognition.load_image_file('image.jpg')
-        encoding = face_recognition.face_encodings(file)[0]
+# @app.route("/upload", methods=["GET", "POST"])
+# def upload():
+#     """Upload a picture"""
+#     global name
+#     if request.method == "POST":
+#         image = request.files["image"]
+#         image.save(os.path.join(app.config['UPLOAD_FOLDER'], 'image.jpg'))
+#         file = face_recognition.load_image_file('image.jpg')
+#         encoding = face_recognition.face_encodings(file)[0]
+#
+#         # matches = face_recognition.compare_faces(known_face_encodings, encoding, 0.5)
+#         #
+#         # print(matches)
+#         # # If a match was found in known_face_encodings, just use the first one.
+#         # if True in matches:
+#         #     first_match_index = matches.index(True)
+#         #     name = known_face_names[first_match_index]
+#         #     return redirect("/welcome")
+#
+#         distances = face_recognition.face_distance(known_face_encodings, encoding)
+#
+#         # print(min(distances))
+#         # If a match was found in known_face_encodings, just use the first one.
+#         if min(distances) < 0.45:
+#             match_index = numpy.where(distances == min(distances))[0][0]
+#             name = known_face_names[match_index]
+#             return redirect("/welcome")
+#
+#
+#         os.remove('image.jpg')
+#         return render_template("finalproject.html")
+#
+#     return render_template("finalproject.html")
 
-        # matches = face_recognition.compare_faces(known_face_encodings, encoding, 0.5)
-        #
-        # print(matches)
-        # # If a match was found in known_face_encodings, just use the first one.
-        # if True in matches:
-        #     first_match_index = matches.index(True)
-        #     name = known_face_names[first_match_index]
-        #     return redirect("/welcome")
-
-        distances = face_recognition.face_distance(known_face_encodings, encoding)
-
-        # print(min(distances))
-        # If a match was found in known_face_encodings, just use the first one.
-        if min(distances) < 0.45:
-            match_index = numpy.where(distances == min(distances))[0][0]
-            name = known_face_names[match_index]
-            return redirect("/welcome")
-
-
-        os.remove('image.jpg')
-        return render_template("finalproject.html")
-
-    return render_template("finalproject.html")
-
-@app.route("/welcome", methods=["GET"])
+@app.route("/harvard", methods=["GET"])
 def welcome():
     global name
     user = name
     name = "Unknown"
     if user == name:
-        return redirect("/login")
+        return render_template("finalproject.html")
     else:
         user = user.replace(',','').split()
     return render_template("welcome.html", name=user)
 
-@app.route("/login")
-def login():
-    return render_template("finalproject.html")
+# @app.route("/login")
+# def login():
+#     return render_template("finalproject.html")
 
 @app.route("/check", methods=["POST"])
 def check():
@@ -124,32 +124,31 @@ def check():
         fh.write(base64.decodestring(data))
     # image.save(os.path.join(app.config['UPLOAD_FOLDER'], 'image.jpg'))
     file = face_recognition.load_image_file('image.jpg')
-    encoding = face_recognition.face_encodings(file)[0]
+    if face_recognition.face_encodings(file)[0]:
+        encoding = face_recognition.face_encodings(file)[0]
 
     os.remove('image.jpg')
 
     distances = face_recognition.face_distance(known_face_encodings, encoding)
+    print(min(distances))
+    print(known_face_names[numpy.where(distances == min(distances))[0][0]])
 
     # If a match was found in known_face_encodings, just use the first one.
     if min(distances) < 0.5:
         match_index = numpy.where(distances == min(distances))[0][0]
         name = known_face_names[match_index]
-        return jsonify(True)
+    #     return jsonify(True)
+    #
+    # # match_index = numpy.where(distances == min(distances))[0][0]
+    # # name = known_face_names[match_index]
+    # else:
+    #     return jsonify(False)
 
-    # match_index = numpy.where(distances == min(distances))[0][0]
-    # name = known_face_names[match_index]
-    return jsonify(False)
 
-
-# @app.route("/delete", methods=["GET", "POST"])
-# def delete():
-#     """Upload a picture"""
-#     return render_template("delete.html")
-
-@app.route("/selfie")
+@app.route("/emot")
 def selfie():
     """Upload a picture"""
-    return render_template("selfie.html")
+    return render_template("emot.html")
 
 #
 # # Listen for errors

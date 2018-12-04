@@ -144,24 +144,16 @@ function takeSnapshot(){
     var xhr = new XMLHttpRequest();
     // if the server returns true, load the welcome page
     xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4) {
-        welcome(xhr.response);
-      }
+      location.replace("/harvard");
     }
 
     // Send the pic to the the server
-    xhr.open('POST', '/check', true);
+    xhr.open('POST', '/check');
     xhr.send(pic)
 
     // Turn the canvas image into a dataURL that can be used as a src for our photo.
     // return hidden_canvas.toDataURL('image/png');
-    return pic
-  }
-}
-
-function welcome(response) {
-  if (response) {
-    location.replace("/welcome")
+    // return pic
   }
 }
 
