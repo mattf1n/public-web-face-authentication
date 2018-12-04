@@ -62,7 +62,7 @@ name = "Unknown"
 
 @app.route("/")
 def index():
-    return redirect("/login")
+    return redirect("/welcome")
 
 # @app.route("/upload", methods=["GET", "POST"])
 # def upload():
@@ -98,15 +98,6 @@ def index():
 #
 #     return render_template("finalproject.html")
 
-<<<<<<< HEAD
-@app.route("/harvard", methods=["GET"])
-def welcome():
-    global name
-    user = name
-    name = "Unknown"
-    if user == name:
-        return render_template("finalproject.html")
-=======
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
     if request.method == "GET":
@@ -114,13 +105,12 @@ def welcome():
         user = name
         name = "Unknown"
         if user == name:
-            return redirect("/login")
+            return render_template("finalproject.html")
         else:
             user = user.replace(',','').split()
         return render_template("welcome.html", name=user)
->>>>>>> 52cdf668d62f737b825f30e40ae431efbc825c42
     else:
-        return redirect("/login")
+        return render_template("finalproject.html")
 
 # @app.route("/login")
 # def login():
@@ -137,8 +127,7 @@ def check():
         fh.write(base64.decodestring(data))
     # image.save(os.path.join(app.config['UPLOAD_FOLDER'], 'image.jpg'))
     file = face_recognition.load_image_file('image.jpg')
-    if face_recognition.face_encodings(file)[0]:
-        encoding = face_recognition.face_encodings(file)[0]
+    encoding = face_recognition.face_encodings(file)[0]
 
     os.remove('image.jpg')
 
