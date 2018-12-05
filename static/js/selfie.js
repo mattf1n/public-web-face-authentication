@@ -145,12 +145,17 @@ function takeSnapshot(){
     // if the server returns true, load the welcome page
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
-        welcome(xhr.response);
+        if (xhr.response == "match") {
+          location.replace("/welcome")
+        }
+        else {
+          document.getElementById("error").innerHTML = "Sorry, we didn't recognize you!"
+        }
       }
     }
 
     // Send the pic to the the server
-    xhr.open('POST', '/check', true);
+    xhr.open('POST', '/login', true);
     xhr.send(pic)
 
     // Turn the canvas image into a dataURL that can be used as a src for our photo.
