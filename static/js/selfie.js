@@ -155,13 +155,16 @@ function takeSnapshot(){
 
     // Turn the canvas image into a dataURL that can be used as a src for our photo.
     // return hidden_canvas.toDataURL('image/png');
-    return pic
+    // return pic
   }
 }
 
 function welcome(response) {
   if (response) {
-    location.replace("/welcome")
+    location.replace("/welcome");
+  }
+  else {
+    console.log("false")
   }
 }
 
