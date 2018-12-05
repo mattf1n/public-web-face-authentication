@@ -12,7 +12,6 @@ import numpy
 import base64
 
 
-
 # Configure application
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = ''
@@ -83,9 +82,9 @@ def login():
             if min(distances) < 0.4:
                 match_index = numpy.where(distances == min(distances))[0][0]
                 name = known_face_names[match_index]
-            print(min(distances))
-            print(name)
-            return "match"
+                print(name)
+                print(min(distances))
+                return "match"
         return "no match"
 
     return render_template("login.html")
