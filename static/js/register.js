@@ -1,77 +1,9 @@
 // Modified from https://tutorialzine.com/2016/07/take-a-selfie-with-js
 
 // References to all the element we will need.
-var video = document.querySelector('#camera-stream'),
-    image = document.querySelector('#snap'),
-    start_camera = document.querySelector('#start-camera'),
-    controls = document.querySelector('.controls'),
-    take_photo_btn = document.querySelector('#take-photo'),
-    delete_photo_btn = document.querySelector('#delete-photo'),
-    download_photo_btn = document.querySelector('#download-photo'),
+var delete_photo_btn = document.querySelector('#delete-photo'),
     register_button = document.querySelector('#register'),
-    error_message = document.querySelector('#error-message');
-
-
-// The getUserMedia interface is used for handling camera input.
-// Some browsers need a prefix so here we're covering all the options
-navigator.getMedia = ( navigator.getUserMedia ||
-                      navigator.webkitGetUserMedia ||
-                      navigator.mozGetUserMedia ||
-                      navigator.msGetUserMedia);
-
-
-if(!navigator.getMedia){
-  displayErrorMessage("Your browser doesn't have support for the navigator.getUserMedia interface.");
-}
-else{
-
-  // Request the camera.
-  navigator.getMedia(
-    {
-      video: true
-    },
-    // Success Callback
-    function(stream){
-
-      // Create an object URL for the video stream and
-      // set it as src of our HTLM video element.
-      // video.src = window.URL.createObjectURL(stream);
-      try {
-        video.srcObject = stream;
-      } catch (error) {
-        video.src = window.URL.createObjectURL(stream);
-      }
-
-      // Play the video element to start the stream.
-      video.play();
-      video.onplay = function() {
-        showVideo();
-      };
-
-    },
-    // Error Callback
-    function(err){
-      displayErrorMessage("There was an error with accessing the camera stream: " + err.name, err);
-    }
-  );
-
-}
-
-
-
-// Mobile browsers cannot play video without user input,
-// so here we're using a button to start it manually.
-start_camera.addEventListener("click", function(e){
-
-  e.preventDefault();
-
-  // Start video playback manually.
-  video.play();
-  showVideo();
-
-});
-
-var snap
+    take_photo_btn = document.querySelector('#take-photo');
 
 take_photo_btn.addEventListener("click", function(e){
 
@@ -85,37 +17,30 @@ take_photo_btn.addEventListener("click", function(e){
 
   // Enable delete and save buttons
   delete_photo_btn.classList.remove("disabled");
-  // download_photo_btn.classList.remove("disabled");
 
   take_photo_btn.classList.add("disabled");
 
   // Set the href attribute of the download button to the snap url.
-  // download_photo_btn.href = snap;
 
   // Pause video playback of stream.
   video.pause();
-
 });
 
 
 delete_photo_btn.addEventListener("click", function(e){
-
   e.preventDefault();
 
   // Hide image.
   image.setAttribute('src', "");
-  // image.classList.remove("visible");
 
-  // Disable delete and save buttons
+  // Disable delete button, enable take photo button
   delete_photo_btn.classList.add("disabled");
-  // download_photo_btn.classList.add("disabled");
-
   take_photo_btn.classList.remove("disabled");
 
   // Resume playback of stream.
   video.play();
-
 });
+
 
 register_button.addEventListener("click", function(e) {
   // Make a new FormData object and put the data form the form in it
@@ -144,15 +69,6 @@ register_button.addEventListener("click", function(e) {
 });
 
 
-function showVideo(){
-  // Display the video stream and the controls.
-
-  hideUI();
-  video.classList.add("visible");
-  controls.classList.add("visible");
-}
-
-
 function takeSnapshot(){
   // Here we're using a trick that involves a hidden canvas element.
 
@@ -178,28 +94,3 @@ function takeSnapshot(){
     // return pic
   }
 }
-
-function displayErrorMessage(error_msg, error){
-  error = error || "";
-  if(error){
-    console.log(error);
-  }
-
-  error_message.innerText = error_msg;
-
-  hideUI();
-  error_message.classList.add("visible");
-}
-
-
-function hideUI(){
-  // Helper function for clearing the app UI.
-
-  controls.classList.remove("visible");
-  start_camera.classList.remove("visible");
-  video.classList.remove("visible");
-  // snap.classList.remove("visible");
-  error_message.classList.remove("visible");
-}
-
-// document.getElementById("take-photo").autofocus = true;
