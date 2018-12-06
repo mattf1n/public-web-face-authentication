@@ -54,21 +54,25 @@ def index():
     return redirect("/welcome")
 
 # Landing page for "logged-in" users
-@app.route("/welcome")
+@app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-    global name
-    # Save the value of name and reset it to unknown
-    user = name
-    name = "Unknown"
+    if request.method == "GET":
+        global name
+        # Save the value of name and reset it to unknown
+        user = name
+        name = "Unknown"
 
-    # If name was originally its default value, go back to the login page.
-    if user == name:
-        return redirect("/login")
-    # Else, if a user has been identified, welcome them.
+        # If name was originally its default value, go back to the login page.
+        if user == name:
+            return redirect("/login")
+        # Else, if a user has been identified, welcome them.
+        else:
+            # name is stored in the database as "Lastname, Firstname"
+            user = user.replace(',','').split()
+            return render_template("welcome.html", name=user)
+    # else if it's a post request, (click on sign out or homepage), redirect
     else:
-        # name is stored in the database as "Lastname, Firstname"
-        user = user.replace(',','').split()
-        return render_template("welcome.html", name=user)
+        return redirect("/login")
 
 
 @app.route("/login", methods=["GET", "POST"])
