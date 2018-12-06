@@ -1,3 +1,5 @@
+// Modified from https://tutorialzine.com/2016/07/take-a-selfie-with-js
+
 // References to all the element we will need.
 var video = document.querySelector('#camera-stream'),
     image = document.querySelector('#snap'),
@@ -116,12 +118,15 @@ delete_photo_btn.addEventListener("click", function(e){
 });
 
 register_button.addEventListener("click", function(e) {
-  var formData = new FormData(document.forms['form']); // Currently empty
+  // Make a new FormData object and put the data form the form in it
+  var formData = new FormData(document.forms['form']);
 
+  // Add the base64 image from the canvas to the form
   formData.append('userpic', document.querySelector('canvas').toDataURL('image/png'));
 
+  // Send the form to the server via XML HTTP request
   var xhr = new XMLHttpRequest();
-  // if the server returns true, load the welcome page
+  // If the server returns and error, print it. Otherwise, redirect the indicated route
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
       if (xhr.response == "error") {

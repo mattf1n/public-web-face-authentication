@@ -1,3 +1,5 @@
+// Modified from https://tutorialzine.com/2016/07/take-a-selfie-with-js
+
 // References to all the element we will need.
 var video = document.querySelector('#camera-stream'),
     image = document.querySelector('#snap'),
@@ -105,11 +107,12 @@ function takeSnapshot(){
     // Make a copy of the current frame in the video on the canvas.
     context.drawImage(video, 0, 0, width, height);
 
+    // Save the picture in base64
     pic = hidden_canvas.toDataURL('image/png')
-    // console.log(pic)
 
+    // Get ready to send to the server
     var xhr = new XMLHttpRequest();
-    // if the server returns true, load the welcome page
+    // if the server returns a match, load the welcome page
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.response == "match") {
@@ -125,18 +128,7 @@ function takeSnapshot(){
     xhr.open('POST', '/login', true);
     xhr.send(pic)
 
-    // Turn the canvas image into a dataURL that can be used as a src for our photo.
-    // return hidden_canvas.toDataURL('image/png');
-    // return pic
-  }
-}
-
-function welcome(response) {
-  if (response) {
-    location.replace("/welcome");
-  }
-  else {
-    console.log("false")
+    return pic
   }
 }
 
