@@ -1,12 +1,13 @@
 body {
   background-image: url("../img/login.png");
-  width: 100%:
-
+  background-size:cover;
+  background-repeat: no-repeat;
 }
 
 div {
   text-align: center;
   padding-top: 150px;
+  font-size: 3.5vw;
 }
 
 /*-- modified from http://jsfiddle.net/VXBVK/ */
