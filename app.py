@@ -1,5 +1,5 @@
 from os import remove
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, session
 from face_recognition import load_image_file, face_encodings, face_distance
 from sqlite3 import connect
 from pickle import loads, dumps
