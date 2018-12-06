@@ -72,14 +72,7 @@ def welcome():
             return render_template("welcome.html", name=user)
     # else if it's a post request, (click on sign out or homepage), redirect
     else:
-<<<<<<< HEAD
-        # name is stored in the database as "Lastname, Firstname"
-        user = user.split(",")
-        return render_template("welcome.html", name=user)
-=======
         return redirect("/login")
->>>>>>> 386528b87ab3f7e0bc4ac8bc29f3ac1626a5c294
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
