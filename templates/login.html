@@ -1,3 +1,5 @@
+<!-- modified from Harvard Key page source, our additions start on line 47-74 -->
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd >
 
@@ -42,49 +44,32 @@
     <img class="logo" src="/static/img/HarvardKeyLogo.png" alt=""/>
 </div>
 
-
+<!-- Addition of webcacm -->
 <div class="content">
     <!-- Login Module -->
     <div class="login box homescreen">
-        <h1 class="welcome">Please Log In</h1>
-
-        <p>To log in, please capture a photo of yourself</a></p>
-
         <link type="text/css" rel="stylesheet" href="/static/css/selfie.css"/>
-
+        <h1 class="welcome">Please Log In</h1>
+        <p>To log in, please capture a photo of yourself</a></p>
           <div class="app">
-
             <a href="#" id="start-camera" class="visible">Touch here to start the app.</a>
-
             <div class="video_container">
-
               <video id="camera-stream"></video>
-
               <div>
                 <p id="error"></p>
               </div>
-
               <div class="controls">
                 <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
               </div>
-
             </div>
-
             <img id="snap">
-
             <p id="error-message"></p>
-
             <!-- Hidden canvas element. Used for taking snapshot of video. -->
             <canvas></canvas>
-
           </div>
-
-
         <script type="text/javascript" src="/static/js/selfie.js"></script>
-
         <!-- <p><a tabindex="19" href="https://key.harvard.edu/" target="_blank">Back to HarvardKey Home ></a></p> -->
         <p><a tabindex="19" href="/register">Not recognizing you? Register your face here ></a></p>
-
     </div>
 </div>
 
