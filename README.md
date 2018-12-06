@@ -9,17 +9,9 @@ webcam, a photo is taken and matched against the Harvard students database (scho
 
 ## Getting started
 
-### Download project
-
-1. Download git
-   1. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-
-```
-$ git clone https://github.com/maryxgao/web-face-authentication.git
-$ cd web-face-authentication
-```
-
 ### Requirements
+
+Note: we had trouble installing dlib on the CS50 IDE. We recommend downloading the project to your computer and running it there instead.
 
 #### Install all at once
 
@@ -68,9 +60,13 @@ At http://localhost:5000/register, you may fill out the form with your first and
 
 ### Is this login secure?
 
-Nope! You can log in as someone else just by holding a photo of them up to the camera. More advanced facial recognition systems can detect "liveness," depth, blinking, emotion, textures, and other features to veryify your face.
+Nope! You can log in as someone else just by holding a photo of them up to the camera. More advanced facial recognition systems can detect "liveness," depth, blinking, emotion, textures, and other features to verify your face.
 
 ## Credits
-Thank you, next.
+https://tutorialzine.com/2016/07/take-a-selfie-with-js
 
-*Documentation for your project in the form of a Markdown file called `README.md`. This documentation is to be a user’s manual for your project. Though the structure of your documentation is entirely up to you, it should be incredibly clear to the staff how and where, if applicable, to compile, configure, and use your project. Your documentation should be at least several paragraphs in length. It should not be necessary for us to contact you with questions regarding your project after its submission. Hold our hand with this documentation; be sure to answer in your documentation any questions that you think we might have while testing your work.*
+https://github.com/ageitgey/face_recognition
+
+https://www.pin1.harvard.edu/cas/login?service=https%3A%2F%2Fkey.harvard.edu%2Fmanage-account
+
+https://my.harvard.edu/

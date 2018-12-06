@@ -62,7 +62,7 @@ We wrote dbmaker.py to create a database with each face's encoding and name. dbm
 
 The login page is modified from the Harvard Key login page, but we replaced the central element containing the login form with a webcam and a "take picture" button. When the user clicks this button, it saves a frame from the webcam and sends it via a XML HTTP request to the server. On the server, we use the face_recognition library to compare the face to the list of known faces. If there is a close match, the user is sent to the welcome page where they are greeted by name. Choosing the minimum threshold of resemblance was a major consideration. For our project presentation, we wanted the server to be able to recognize most Harvard students' faces from their sometimes inaccurate and low resolution ID photos without forcing to register their faces, so we set the threshold relatively low, that is, the server is more likely to accept questionable faces. The drawback of this approach is that misidentification is more common, especially with non-white faces. This somewhat racist bias is a common problem with facial recognition technologies.
 
-When the user's face is recognized, it is saved as a global variable `name` in app.py. This is bad design.
+When the user's face is recognized, it is saved as a session on the user's computer as `session['name']`. The user is now logged in and is redirected to the welcome page.
 
 ### Register
 
@@ -70,10 +70,11 @@ The register page was challenging because we had to combine a form with our pict
 
 ### Welcome
 
-We used Jinja to welome users by name when they log in. We took a screenshot of the my.harvard page to act as a fun background. We decided to do this instead of taking its source code because the source code had many links to multiple other css, Javscript files. We added invisible buttons around the logo on the top left corner and the sign out in the top right corner which redirects the user to login. We also added a log out button to make it more obvious. We decided to log the user back out immediately when loading the page so that a simple refresh will bring the user back to the login page.
+We used Jinja to welome users by name when they log in. We took a screenshot of the my.harvard page to act as a fun background. We decided to do this instead of taking its source code because the source code had many links to multiple other css, Javscript files. We added invisible buttons around the logo on the top left corner and the sign out in the top right corner which redirects the user to login. We also added a log out button to make it more obvious.
 
 
 
 
 
 *A "design document" for your project in the form of a Markdown file called DESIGN.md that discusses, technically, how you implemented your project and why you made the design decisions you did. Your design document should be at least several paragraphs in length. Whereas your documentation is meant to be a user’s manual, consider your design document your opportunity to give the staff a technical tour of your project underneath its hood.*
+
