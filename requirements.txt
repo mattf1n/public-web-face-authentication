@@ -1,6 +1,4 @@
+dlib
 flask
 face_recognition
-sqlite3
-pickle
 numpy
-base64
