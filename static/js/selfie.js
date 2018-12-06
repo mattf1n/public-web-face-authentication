@@ -1,3 +1,5 @@
+// Modified from https://tutorialzine.com/2016/07/take-a-selfie-with-js
+
 // References to all the element we will need.
 var video = document.querySelector('#camera-stream'),
     image = document.querySelector('#snap'),
@@ -5,7 +7,6 @@ var video = document.querySelector('#camera-stream'),
     controls = document.querySelector('.controls'),
     take_photo_btn = document.querySelector('#take-photo'),
     delete_photo_btn = document.querySelector('#delete-photo'),
-    download_photo_btn = document.querySelector('#download-photo'),
     error_message = document.querySelector('#error-message');
 
 
@@ -54,8 +55,6 @@ else{
 
 }
 
-
-
 // Mobile browsers cannot play video without user input,
 // so here we're using a button to start it manually.
 start_camera.addEventListener("click", function(e){
@@ -69,75 +68,12 @@ start_camera.addEventListener("click", function(e){
 });
 
 
-take_photo_btn.addEventListener("click", function(e){
-
-  e.preventDefault();
-
-  var snap = takeSnapshot();
-
-});
-
-
 function showVideo(){
   // Display the video stream and the controls.
 
   hideUI();
   video.classList.add("visible");
   controls.classList.add("visible");
-}
-
-
-function takeSnapshot(){
-  // Here we're using a trick that involves a hidden canvas element.
-
-  var hidden_canvas = document.querySelector('canvas'),
-      context = hidden_canvas.getContext('2d');
-
-  var width = video.videoWidth,
-      height = video.videoHeight;
-
-  if (width && height) {
-
-    // Setup a canvas with the same dimensions as the video.
-    hidden_canvas.width = width;
-    hidden_canvas.height = height;
-
-    // Make a copy of the current frame in the video on the canvas.
-    context.drawImage(video, 0, 0, width, height);
-
-    pic = hidden_canvas.toDataURL('image/png')
-    // console.log(pic)
-
-    var xhr = new XMLHttpRequest();
-    // if the server returns true, load the welcome page
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4) {
-        if (xhr.response == "match") {
-          location.replace("/welcome")
-        }
-        else {
-          document.getElementById("error").innerHTML = "Sorry, we didn't recognize you!"
-        }
-      }
-    }
-
-    // Send the pic to the the server
-    xhr.open('POST', '/login', true);
-    xhr.send(pic)
-
-    // Turn the canvas image into a dataURL that can be used as a src for our photo.
-    // return hidden_canvas.toDataURL('image/png');
-    // return pic
-  }
-}
-
-function welcome(response) {
-  if (response) {
-    location.replace("/welcome");
-  }
-  else {
-    console.log("false")
-  }
 }
 
 function displayErrorMessage(error_msg, error){
