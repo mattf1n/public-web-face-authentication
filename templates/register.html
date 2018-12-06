@@ -1,3 +1,4 @@
+<!-- modified from Harvard Key page source, our additions start on line 46-79 -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd >
 
@@ -42,57 +43,38 @@
     <img class="logo" src="/static/img/HarvardKeyLogo.png" alt=""/>
 </div>
 
-
+<!-- Additions begin -->
 <div class="content">
     <!-- Login Module -->
     <div class="login box homescreen">
-        <h1 class="welcome">Please Register</h1>
-
-        <p>To register, please enter your name then capture a photo of yourself</a></p>
-
         <link type="text/css" rel="stylesheet" href="/static/css/selfie.css"/>
-
+        <h1 class="welcome">Please Register</h1>
+        <p>To register, please enter your name then capture a photo of yourself</a></p>
           <div class="app">
-
             <a href="#" id="start-camera" class="visible">Touch here to start the app.</a>
-
             <div class="video_container">
-
               <form name="form">
                 <input type="text" name="firstname" placeholder="First name" autocomplete="off"/>
                 <input type="text" name="lastname" placeholder="Last name" autocomplete="off"/>
               </form>
-
               <video id="camera-stream"></video>
-
               <div class="controls">
                 <a href="#" id="delete-photo" title="Delete Photo" class="disabled"><i class="material-icons">delete</i></a>
                 <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">camera_alt</i></a>
               </div>
-
             </div>
-
             <img id="snap">
-
             <p id="error-message"></p>
-
             <!-- Hidden canvas element. Used for taking snapshot of video. -->
             <canvas></canvas>
-
           </div>
-
           <div>
             <p id="error"></p>
           </div>
-
           <button class="button" id="register">Register</button>
-
-
         <script type="text/javascript" src="/static/js/register.js"></script>
-
         <!-- <p><a tabindex="19" href="https://key.harvard.edu/" target="_blank">Back to HarvardKey Home ></a></p> -->
         <p><a tabindex="19" href="/login">Back to login page ></a></p>
-
     </div>
 </div>
 
