@@ -45,12 +45,13 @@ We set up a Flask web app and organized our project accordingly.
 
 ### Database
 
-We created a database of Harvard students and their faces.
+We created a database of Harvard students and their faces. The 
 
 | id   | name               | encoding |
 | ---- | ------------------ | -------- |
 | 1    | Finlayson, Matthew | ####     |
 | 2 | Gao, Mary | #### |
+| 3 | Michalak, Winston | #### |
 
 
 ### Login
