@@ -4,19 +4,23 @@
 
 ## Requirements
 
-See requirements.txt for full list of requirements
+### Install all at once
 
+`pip install requirements.txt`
 
+### Individual requirement installation instructions
 
 * Face Recognition
   * Mac or Linux: 
     * Install dlib
       - https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf
-    * `pip install face_recognition`
+    * Install face_recognition: `pip install face_recognition`
   * Windows: (not officially supported)
     * https://github.com/ageitgey/face_recognition/issues/175#issue-257710508
   * Other
     * See README.md from https://github.com/ageitgey/face_recognition
 * Flask
   * `pip install Flask`
-
+* SQLite3
+  * `npm install sqlite3`
+* 

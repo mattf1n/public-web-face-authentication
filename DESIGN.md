@@ -49,13 +49,13 @@ We created a database of Harvard students and their faces.
 
 We used the Harvard Facebook and scraped all the images and their corresponding names. Using https://www.webscraper.io/, we got a csv document with a name column and the name of the image column (because the name of the image is hashed). Then, using Fatkun Batch Download Image, a Chrome extension, we downloaded a folder "students" containing the images of every student. The name of the images in that folder are hashed and needed to be changed. For that, we wrote filename_changer.py to change the hashed name with their real name using the csv file containing both values.
 
-We wrote dbmaker.py to create a database with each face's encoding and name. dbmaker.py takes .jpg images from a folder called "students" in the same directory, creates an encoding for each face, saves it as a blob, and puts them in a database with their names.
+We wrote dbmaker.py to create a database with each face's encoding and name. dbmaker.py takes .jpg files from a folder called "students" in the same directory, creates an encoding for each file's image, saves it as a blob, and puts it in a database with the name associated with the filename, for instance "Finlayson, Matthew.jpg" is saved as "Finlayson, Matthew." 
 
 | id   | name               | encoding |
 | ---- | ------------------ | -------- |
-| 1    | Finlayson, Matthew | ####     |
-| 2 | Gao, Mary | #### |
-| 3 | Michalak, Winston | #### |
+| 1    | Finlayson, Matthew | (Blob) |
+| 2 | Gao, Mary | (Blob) |
+| 3 | Michalak, Winston | (Blob) |
 
 
 ### Login
