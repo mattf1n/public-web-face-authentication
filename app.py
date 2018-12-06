@@ -1,14 +1,10 @@
-import os
-
-from flask import Flask, flash, jsonify, redirect, render_template, request, session
-from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
-from werkzeug.security import check_password_hash, generate_password_hash
-from datetime import datetime
-import face_recognition
-import sqlite3
-import pickle
-import numpy
-import base64
+from os import remove
+from flask import Flask, redirect, render_template, request
+from face_recognition import load_image_file, face_encodings, face_distance
+from sqlite3 import connect
+from pickle import loads, dumps
+from numpy import where
+from base64 import decodestring
 
 
 # Configure application
@@ -18,7 +14,6 @@ app.config['UPLOAD_FOLDER'] = ''
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 # Ensure responses aren't cached
-
 @app.after_request
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -27,7 +22,7 @@ def after_request(response):
     return response
 
 # Connect the database
-conn = sqlite3.connect('faces.db')
+conn = connect('faces.db')
 c = conn.cursor()
 
 # Make a list to hold the encodings and names of the students
@@ -40,7 +35,7 @@ known_faces = c.fetchall()
 
 # Iterate over the list, saving the encodings and faces
 for face in known_faces:
-    known_face_encodings.append(pickle.loads(face[1])[0])
+    known_face_encodings.append(loads(face[1])[0])
     known_face_names.append(face[0])
 
 # Close the database
@@ -82,21 +77,21 @@ def login():
         with open('image.jpg', 'wb') as fh:
             # Get only revelant data, deleting "data:image/png;base64,"
             data = request.data.split(',')[1]
-            fh.write(base64.decodestring(data))
+            fh.write(decodestring(data))
         # Load and encode the image
-        file = face_recognition.load_image_file('image.jpg')
-        encoding = face_recognition.face_encodings(file)
+        file = load_image_file('image.jpg')
+        encoding = face_encodings(file)
 
         # Delete our copy of the picture
-        os.remove('image.jpg')
+        remove('image.jpg')
 
         # If a face was found, find the closest recognized face in the database.
         if encoding:
-            distances = face_recognition.face_distance(known_face_encodings, encoding[0])
+            distances = face_distance(known_face_encodings, encoding[0])
 
             # If there is a close match, set name to the name of the recognized user.
             if min(distances) < 0.4:
-                match_index = numpy.where(distances == min(distances))[0][0]
+                match_index = where(distances == min(distances))[0][0]
                 global name
                 name = known_face_names[match_index]
                 print(name)
@@ -120,24 +115,25 @@ def selfie():
         with open('add.jpg', 'wb') as fh:
             # Get only revelant data, deleting "data:image/png;base64,"
             data = request.form['userpic'].split(',')[1]
-            fh.write(base64.decodestring(data))
+            fh.write(decodestring(data))
 
         # Encode the picture of their face
-        file = face_recognition.load_image_file('add.jpg')
-        encoding = face_recognition.face_encodings(file)
+        file = load_image_file('add.jpg')
+        encoding = face_encodings(file)
 
         # Get rid of our copy of the picture
-        os.remove('add.jpg')
+        remove('add.jpg')
 
-        # If they sent all the required data, add it to the database and list of names/encodings.
+        # If they sent all the required data, add it to the database
         if encoding and firstname and lastname:
-            conn = sqlite3.connect('faces.db')
+            conn = connect('faces.db')
             c = conn.cursor()
             c.execute("INSERT INTO users (name, encoding) VALUES (?, ?)",
-                      (username, pickle.dumps(encoding)))
+                      (username, dumps(encoding)))
             conn.commit()
             conn.close()
 
+            # Add to our working list of encodings
             known_face_encodings.append(encoding[0])
             known_face_names.append(username)
             return "/login"
