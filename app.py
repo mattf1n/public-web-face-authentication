@@ -113,6 +113,9 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def selfie():
     """Upload a picture"""
+    # clear user Session
+    session.clear()
+    
     # If the user submits the form via post...
     if request.method == "POST":
         # Get their first and last names and make a username of the form "Lastname, Firstname"
