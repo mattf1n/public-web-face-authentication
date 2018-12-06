@@ -67,7 +67,7 @@ def welcome():
     # Else, if a user has been identified, welcome them.
     else:
         # name is stored in the database as "Lastname, Firstname"
-        user = user.replace(',','').split()
+        user = user.split(",")
         return render_template("welcome.html", name=user)
 
 
