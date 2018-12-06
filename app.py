@@ -74,7 +74,6 @@ def welcome():
     else:
         return redirect("/login")
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     # If a user submits a photo via POST
