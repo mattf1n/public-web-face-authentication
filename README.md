@@ -46,7 +46,7 @@ Open the given URL in Google Chrome.
 
 ## Login
 
-You should have redirected to http://localhost:5000/login. You must enable javascript and allow the browser to access your camera for the app to work. Take a picture of yourself by clicking the camera button. If the server recognizes you, it should log you in. If not, you may try again, but it is possible that your face is not in the database or your appearence is too different from your Harvard ID photo. If this is the case, go ahead and click the "register" link below the camera button. If the server recognizes your face, you will be redirected to a welcome page, which will welcome you by name.
+You should have redirected to http://localhost:5000/login. You must enable javascript and allow the browser to access your camera for the app to work. Take a picture of yourself by clicking the camera button. If the server recognizes you, it should log you in. If not, you may try again, but it is possible that your face is not in the database or your appearance is too different from your Harvard ID photo. If this is the case, go ahead and click the "register" link below the camera button. If the server recognizes your face, you will be redirected to a welcome page, which will welcome you by name.
 
 ## Register
 
@@ -62,6 +62,7 @@ At http://localhost:5000/register, you may fill out the form with your first and
 
 Nope! You can log in as someone else just by holding a photo of them up to the camera. More advanced facial recognition systems can detect "liveness," depth, blinking, emotion, textures, and other features to verify your face.
 
+<<<<<<< HEAD
 ## Credits
 https://tutorialzine.com/2016/07/take-a-selfie-with-js
 
@@ -70,3 +71,6 @@ https://github.com/ageitgey/face_recognition
 https://www.pin1.harvard.edu/cas/login?service=https%3A%2F%2Fkey.harvard.edu%2Fmanage-account
 
 https://my.harvard.edu/
+=======
+*Documentation for your project in the form of a Markdown file called `README.md`. This documentation is to be a user’s manual for your project. Though the structure of your documentation is entirely up to you, it should be incredibly clear to the staff how and where, if applicable, to compile, configure, and use your project. Your documentation should be at least several paragraphs in length. It should not be necessary for us to contact you with questions regarding your project after its submission. Hold our hand with this documentation; be sure to answer in your documentation any questions that you think we might have while testing your work.*
+>>>>>>> c04988b4cd92e45b522541902f84db2ca6cf469f

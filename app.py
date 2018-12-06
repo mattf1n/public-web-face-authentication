@@ -1,10 +1,12 @@
 from os import remove
 from flask import Flask, redirect, render_template, request, session
+from flask_session import Session
 from face_recognition import load_image_file, face_encodings, face_distance
 from sqlite3 import connect
 from pickle import loads, dumps
 from numpy import where
 from base64 import decodestring
+from tempfile import mkdtemp
 
 
 # Configure application
@@ -12,6 +14,12 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = ''
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+# Configure session to use filesystem (instead of signed cookies)
+app.config["SESSION_FILE_DIR"] = mkdtemp()
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 # Ensure responses aren't cached
 @app.after_request
@@ -41,9 +49,6 @@ for face in known_faces:
 # Close the database
 conn.close()
 
-# Set a global variable, name
-name = "Unknown"
-
 @app.route("/")
 def index():
     return redirect("/welcome")
@@ -52,25 +57,29 @@ def index():
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
     if request.method == "GET":
-        global name
-        # Save the value of name and reset it to unknown
-        user = name
-        name = "Unknown"
-
-        # If name was originally its default value, go back to the login page.
-        if user == name:
+        # If name was originally its default value, go back to the login page
+        if not session:
             return redirect("/login")
+
         # Else, if a user has been identified, welcome them.
         else:
             # name is stored in the database as "Lastname, Firstname"
-            user = user.replace(',','').split()
-            return render_template("welcome.html", name=user)
+            print(session['name'])
+            name = session['name'].split(",")
+            return render_template("welcome.html", name=name)
+
+        # Close the database
+        conn.close()
+
     # else if it's a post request, (click on sign out or homepage), redirect
     else:
         return redirect("/login")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    # clear user Session
+    session.clear()
+
     # If a user submits a photo via POST
     if request.method == "POST":
         # Save a copy of the picture they sent in the current directory
@@ -78,6 +87,7 @@ def login():
             # Get only revelant data, deleting "data:image/png;base64,"
             data = request.data.split(',')[1]
             fh.write(decodestring(data))
+
         # Load and encode the image
         file = load_image_file('image.jpg')
         encoding = face_encodings(file)
@@ -92,10 +102,9 @@ def login():
             # If there is a close match, set name to the name of the recognized user.
             if min(distances) < 0.4:
                 match_index = where(distances == min(distances))[0][0]
-                global name
-                name = known_face_names[match_index]
-                print(name)
-                print(min(distances))
+                session['name'] = known_face_names[match_index]
+                # print(name)
+                # print(min(distances))
                 return "match"
         return "no match"
     return render_template("login.html")
@@ -104,6 +113,9 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def selfie():
     """Upload a picture"""
+    # clear user Session
+    session.clear()
+    
     # If the user submits the form via post...
     if request.method == "POST":
         # Get their first and last names and make a username of the form "Lastname, Firstname"
