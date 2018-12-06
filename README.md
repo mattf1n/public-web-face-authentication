@@ -28,7 +28,6 @@ webcam, a photo is taken and matched against the Harvard students database (scho
   * `pip install Flask`
 * SQLite3
   * `npm install sqlite3`
-*
 
 ## Credits
 
