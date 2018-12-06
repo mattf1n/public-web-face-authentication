@@ -64,7 +64,6 @@ def welcome():
         # Else, if a user has been identified, welcome them.
         else:
             # name is stored in the database as "Lastname, Firstname"
-            print(session['name'])
             name = session['name'].split(",")
             return render_template("welcome.html", name=name)
 
@@ -115,7 +114,7 @@ def selfie():
     """Upload a picture"""
     # clear user Session
     session.clear()
-    
+
     # If the user submits the form via post...
     if request.method == "POST":
         # Get their first and last names and make a username of the form "Lastname, Firstname"
