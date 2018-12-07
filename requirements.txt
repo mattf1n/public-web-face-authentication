@@ -1,4 +1,5 @@
 dlib
-flask
+Flask
+Flask-Session
 face_recognition
 numpy
